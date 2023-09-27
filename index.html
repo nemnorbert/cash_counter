@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en:US">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#2362D7">
+
+    <meta property="og:title" content="Cash Counter">
+    <meta property="og:description" content="Count your money in the easiest way">
+    <meta property="og:url" content="https://r.red-cat.hu/counter">
+    <meta property="og:image" content="">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Cash Counter">
+    <meta name="twitter:description" content="Count your money in the easiest way">
+    <meta name="twitter:image" content="">
+
+    <link rel="apple-touch-icon" sizes="180x180" href="/img/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/img/favicon/favicon-16x16.png">
+
+    <title>Cash Counter by REDCAT</title>
+    <link rel="stylesheet" type="text/css" href="./css/style.css">
+</head>
+<body>
+
+<div id="floater"></div>
+<div id="switcher">
+    <div class="switch btn active" alt="HUF">HUF</div>
+    <div class="switch btn" alt="EUR">EUR</div>
+    <div class="switch btn" alt="USD">USD</div>
+</div>
+
+<main>
+    <div id="mainContent">
+        <div id="cover">
+            <h1 id="title">Cash Counter</h1>
+            <div id="price"></div>
+        </div>
+    
+        <div id="calcBox" class="box calc"></div>
+    
+        <div id="poweredBy">
+            <a target="_blank" href="https://red-cat.hu">powered by <b>REDCAT</b></a>
+        </div>
+    </div>
+
+    <div id="saveContent">
+        <div>
+            <h2>Saved Data</h2>
+            <table id="saveTable"></table>
+        </div>
+        <div class="buttons">
+            <div onclick="purgeSaves()" class="btn">Delete data</div>
+        </div>
+    </div>
+</main>
+
+<nav>
+    <div id="overAll">
+        <div>Overall:</div>
+        <div><span id="sum1"></span> <br> <span id="sum2"></span></div>
+    </div>
+    <div id="buttons">
+        <div id="saveBtn" class="btn">Save</div>
+        <div onclick="buildPrint()" id="printBtn" class="btn">Print</div>
+        <div id="resetBtn" class="btn">Reset</div>
+    </div>
+</nav>
+
+<div id="print"></div>
+</div>
+<script src="./js/main.js"></script>
+</body>
+</html>
