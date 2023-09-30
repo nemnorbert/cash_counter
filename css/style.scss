@@ -35,7 +35,10 @@ html {
     text-align: center;
     min-height: 120vh;
     padding-bottom: 300px;
+}
+body {
     width: $width;
+    margin: 0 auto;
 }
 a {
     color: $colorMain;
