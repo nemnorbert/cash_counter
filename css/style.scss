@@ -39,9 +39,9 @@ html {
     text-align: center;
     min-height: 120vh;
     padding-bottom: 300px;
+    min-width: $minWidth;
 }
 body {
-    width: $width;
     margin: 0 auto;
 }
 a {
@@ -357,7 +357,6 @@ nav {
 @media print {
     html {
         padding-bottom: 0;
-        width: auto;
         min-height: auto;
         background: white;
         color: black;
