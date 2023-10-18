@@ -37,8 +37,10 @@ const sumCash = {
 
 // Variables
 let currencyAPI; // for API Currency Data
+const mainPath = window.location.host === "localhost" ? "/redcat/" : "https://center.red-cat.hu/";
 let currencyData;
 let priceData = 0;
+let currencies = {};
 
 // Divs
 const selectDiv = document.getElementById("currency");
@@ -127,37 +129,29 @@ const saveManager = () => {
     });
     saveTable.innerHTML = saveHTML;
 }
-
 const foreignCurrency = async () => {
-    let storageData = JSON.parse(localStorage.getItem("cashcounter_currency")) || {};
-    let fresh = mainData.today === (storageData?.date ?? false);
-    if (!fresh) {
-        try {
-            currencyAPI = await fetchJSON("https://api.freecurrencyapi.com/v1/latest?apikey=fca_live_5QIBazzZLkZ1bRnNGyveyxK0z1TjfssJihF9EiLJ&currencies=USD%2CHUF&base_currency=EUR");
+    try {
+        let url = mainPath+"json/currency.json";
+        currencyAPI = await fetchJSON(url);
+
+        if (currencyAPI.success) {
             console.log('%cCurrencies updated (api ready)', 'color: white; background-color: blue; padding: 2px 5px; border-radius: 2px');
-            let json = {
-                date: mainData.today,
-                EUR: Math.floor(currencyAPI.data.HUF),
-                USD: Math.floor(currencyAPI.data.HUF/currencyAPI.data.USD)
+
+            currencies = {
+                date: currencyAPI.timestamp,
+                EUR: Math.floor(currencyAPI.rates.HUF),
+                USD: Math.floor(currencyAPI.rates.HUF/currencyAPI.rates.USD)
             }
-            localStorage.setItem("cashcounter_currency", JSON.stringify(json));
-            storageData = json;
-        } catch (error) {
-            console.error("Error:", error);
         }
+        priceDiv.innerHTML = `<b>${currencies[mainData.currency]} HUF</b><br>${currencies.date}`;
+        priceData = currencies[mainData.currency];
+        mainData.price = convertString(priceData,"hu-HU", "HUF");
+    } catch (error) {
+        console.error("Error:", error);
     }
-    priceDiv.innerHTML = `<b>${storageData[mainData.currency]} HUF</b><br>${storageData.date}`;
-    priceData = storageData[mainData.currency];
-    mainData.price = convertString(priceData,"hu-HU", "HUF");
 }
 
-
-
-
 /////////////////////////
-
-
-
 const calcSystem = () => {
     let cashCalc = document.querySelectorAll('.inputs');
     cashCalc.forEach((input, index) => {
