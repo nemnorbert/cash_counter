@@ -82,10 +82,25 @@ main > div {
 }
 
 // Currency Switcher
+#currencies {
+    //position: absolute;
+    //top: 10px;
+    //left: 50%;
+    transform: translateX(-50%);
+    font-size: 1.5rem;
+    border-radius: $borderRadius;
+    background-color: rgba(255, 255, 255, 0.714);
+    color: rgb(12, 12, 12);
+    backdrop-filter: blur(10px);
+    z-index: 5;
+    padding: 10px 15px;
+    text-transform: uppercase;
+    border: 0;
+}
 #switcher {
-    position: fixed;
-    top: 10px;
-    left: 50%;
+    //position: fixed;
+    //top: 10px;
+    //left: 50%;
     transform: translateX(-50%);
     display: flex;
     font-size: 1.5rem;
@@ -133,6 +148,14 @@ main > div {
     box-shadow: 2px 2px 5px rgba(30, 30, 30, 0.848);
     text-transform: uppercase;
     z-index: 3;
+
+    .top {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        
+    }
 
     #price {
         position: absolute;

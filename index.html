@@ -26,17 +26,28 @@
 <body>
 
 <div id="floater"></div>
+<!--
 <div id="switcher">
     <div class="switch btn active" alt="HUF">HUF</div>
     <div class="switch btn" alt="EUR">EUR</div>
     <div class="switch btn" alt="USD">USD</div>
 </div>
+-->
 
 <main>
     <div id="mainContent">
         <div id="cover">
             <h1 id="title">Cash Counter</h1>
             <div id="price"></div>
+
+            <div class="top">
+                <select name="currencies" id="currencies">
+                    <option value="HUF">HUF</option>
+                    <option value="EUR">EUR</option>
+                    <option value="USD">USD</option>
+                </select>
+                <input type="text">
+            </div>
         </div>
     
         <div id="calcBox" class="box calc"></div>
