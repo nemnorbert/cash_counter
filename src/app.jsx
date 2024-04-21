@@ -1,59 +1,37 @@
 import { useState } from 'preact/hooks'
-import currencies from './currencies'
-
-function CashItem({ onClick, children }) {
-  return (<>
-    <div>
-      <div>{children}</div>
-      <div className="btn">
-        <button> - </button>
-        <input type="number" name="address"  min="0" defaultValue="0" />
-        <button> + </button>
-      </div>
-    </div>
-  </>)
-}
-
-function CurrencySwitcher() {
-  return (<>
-    <select id="currency" name="currency">
-        <option value="huf">HUF</option>
-        <option value="eur">EUR</option>
-        <option value="usd">USD</option>
-    </select>
-  </>)
-}
+import currencies from './currencies';
+import MoneyBox from './components/MoneyBox';
+import ControlPanel from './components/ControlPanel';
 
 export function App() {
   const [total, setTotal] = useState(0);
-  const [details, setDetails] = useState({});
-  const [money, setMoney] = useState(currencies["usd"]);
-
-  const convertTo = (input) => input.toLocaleString(money.lang, {style: 'currency', currency: money.currency, maximumFractionDigits: 0});
-
-  function handleCashClick(amount) {
-    setTotal(total + amount)
-  }
+  const [currencyData, setCurrencyData] = useState(currencies["huf"]);
+  /*
+  const [amounts, setAmounts] = useState({
+    500: 0,
+    1000: 0,
+    2000: 0,
+    5000: 0,
+    10000: 0,
+    20000: 0,
+  });
+  */
+  const [amounts, setAmounts] = useState({
+    500: { quantity: 0, value: 0 },
+    1000: { quantity: 0, value: 0 },
+    2000: { quantity: 0, value: 0 },
+    5000: { quantity: 0, value: 0 },
+    10000: { quantity: 0, value: 0 },
+    20000: { quantity: 0, value: 0 },
+  });
 
   return (
     <>
-      <h1>Cash Counter</h1>
       <main>
-        {
-          money.cash.map((item, index) => (
-            <CashItem key={index} onClick={() => handleCashClick(item)}>
-              {convertTo(item)}
-            </CashItem>
-          ))
-        }
+        <h1>Cash Counter</h1>
+        <MoneyBox currencyData={currencyData} type="cash" amounts={amounts} setAmounts={setAmounts} />
       </main>
-      <div id='total'>
-        <div className="title">
-          <CurrencySwitcher /> total
-        </div>
-        <div className="value">{convertTo(total)}</div>
-        <div className="huf">-</div>
-      </div>
+      <ControlPanel total={total} />
     </>
   )
 }
