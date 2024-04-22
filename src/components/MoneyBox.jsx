@@ -1,5 +1,7 @@
 import { useState, useEffect } from "preact/hooks";
-export default function MoneyBox({currencyData, type, amounts, setAmounts}) {
+import convertTo from "../utils/convertTo";
+
+export default function MoneyBox({setTotal, currencyData, type, amounts, setAmounts}) {
     const [boxTotal, setBoxTotal] = useState(0);
 
     useEffect(() => {
@@ -7,7 +9,8 @@ export default function MoneyBox({currencyData, type, amounts, setAmounts}) {
         for (const key in amounts) {
             total += amounts[key].value;
         }
-        setBoxTotal(total);
+        setBoxTotal(convertTo(total, currencyData));
+        setTotal(convertTo(total, currencyData));
     }, [amounts]);
 
     // Cash Item
@@ -29,16 +32,18 @@ export default function MoneyBox({currencyData, type, amounts, setAmounts}) {
             }));
         };
         
-        const handleChange = (e) => handleAmountChange(Number(e.target.children));
+        const handleChange = (e) => handleAmountChange(Number(e.target.value));
         const handleIncrement = () => handleAmountChange(itemCount + 1);
         const handleDecrement = () => handleAmountChange(itemCount - 1);
         
         return (<>
             <div className="item">
-                <div className="value">{children}</div>
-                <div>{itemValue}</div>
+                <div className="values">
+                    <div>{convertTo(children, currencyData)}</div>
+                    <div>{convertTo(itemValue, currencyData)}</div>
+                </div>
                 <div className="btn">
-                    <button onClick={handleDecrement} disabled={itemCount === 0 || undefined} className={itemCount === 0 ? "disabled" : undefined}> - </button>
+                    <button onClick={handleIncrement} disabled={itemCount === 999 || undefined} className={itemCount === 999 ? "disabled" : undefined}> + </button>
                     <input onChange={handleChange} 
                         type="number" 
                         name="address"  
@@ -46,7 +51,7 @@ export default function MoneyBox({currencyData, type, amounts, setAmounts}) {
                         max="999" 
                         value={itemCount}
                     />
-                    <button onClick={handleIncrement}> + </button>
+                    <button onClick={handleDecrement} disabled={itemCount === 0 || undefined} className={itemCount === 0 ? "disabled" : undefined}> - </button>
                 </div>
             </div>
         </>)
@@ -55,15 +60,19 @@ export default function MoneyBox({currencyData, type, amounts, setAmounts}) {
         
     return (<>
         <div className="container">
-            <h2>Papír</h2>
-            {
-                currencyData?.[type]?.map((item, index) => (
-                    <CashItem key={index} amounts={amounts} setAmounts={setAmounts}>
-                        {item}
-                    </CashItem>
-                ))
-            }
-            <p>Összesítve: {boxTotal}</p>
+            <div className="title">
+                <h2>Papír</h2>
+                <div>{boxTotal}</div>
+            </div>
+            <div className="content">
+                {
+                    currencyData?.[type]?.map((item, index) => (
+                        <CashItem key={index} amounts={amounts} setAmounts={setAmounts}>
+                            {item}
+                        </CashItem>
+                    ))
+                }
+            </div>
         </div>
     </>)
 }

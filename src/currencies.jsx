@@ -4,9 +4,7 @@ const currencies = {
         lang: "hu-HU",
         name: "forint",
         cash: [500, 1000, 2000, 5000, 10000, 20000],
-        coin: {
-            coins: [5, 10, 20, 50, 100, 200],
-        }
+        coin: [5, 10, 20, 50, 100, 200]
     },
     usd: {
         currency: "USD",
