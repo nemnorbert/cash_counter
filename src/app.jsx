@@ -1,28 +1,53 @@
 import { useState } from 'preact/hooks'
 import currencies from './currencies';
-import MoneyBox from './components/MoneyBox';
-import ControlPanel from './components/ControlPanel';
+import Box from './components/Box';
+import Panel from './components/Panel';
+import Saves from './components/Saves';
 
 export function App() {
-  const [total, setTotal] = useState(0);
-  const [currencyData, setCurrencyData] = useState(currencies["huf"]);
-
-  const [amounts, setAmounts] = useState({
-    500: { quantity: 0, value: 0 },
-    1000: { quantity: 0, value: 0 },
-    2000: { quantity: 0, value: 0 },
-    5000: { quantity: 0, value: 0 },
-    10000: { quantity: 0, value: 0 },
-    20000: { quantity: 0, value: 0 },
+  const [total, setTotal] = useState({ coin: 0, banknote: 0, });
+  const [price, setPrice] = useState("");
+  const [currency, setCurrencyData] = useState({
+    current: currencies["huf"],
+    all: currencies
   });
+
+  const resetAll = () => {
+    setTotal({ coin: 0, banknote: 0, })
+    setPrice("");
+  }
+
+  const updateOverall = (type, value) => {
+    setTotal(t => ({
+      ...t,
+      [type]: value
+    }))
+  }
 
   return (
     <>
       <main>
         <h1>Cash Counter</h1>
-        <MoneyBox setTotal={setTotal} currencyData={currencyData} type="cash" amounts={amounts} setAmounts={setAmounts} />
+        <Box 
+          type="coin" 
+          currency={currency.current}
+          updateOverall={updateOverall}
+        />
+        <Box 
+          type="banknote" 
+          currency={currency.current}
+          updateOverall={updateOverall}
+        />
+        <Saves />
       </main>
-      <ControlPanel currencyData={currencyData} total={total} />
+      <Panel 
+        currency={currency} 
+        setCurrency={setCurrencyData}
+        price={price}
+        setPrice={setPrice}
+        reset={resetAll}
+        total={total}
+      />
     </>
   )
 }

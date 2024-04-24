@@ -1,25 +1,17 @@
 const currencies = {
     huf: {
-        currency: "HUF",
+        iso: "huf",
         lang: "hu-HU",
-        name: "forint",
-        cash: [500, 1000, 2000, 5000, 10000, 20000],
-        coin: [5, 10, 20, 50, 100, 200]
-    },
-    usd: {
-        currency: "USD",
-        lang: "en-US",
-        cash: [1, 2, 5, 10, 20, 50, 100],
-        coin: {
-            name: "cent",
-            coins: [1, 5, 10, 25],
-            multiplier: 0.01
-        }
+        banknote: [500, 1000, 2000, 5000, 10000, 20000],
+        coin: [5, 10, 20, 50, 100, 200],
+        coinSymbol: null,
     },
     eur: {
-        currency: "EUR",
+        iso: "eur",
         lang: "de-DE",
-        cash: [5, 10, 20, 50, 100, 200],
-    },
+        banknote: [5, 10, 20, 50, 100, 200, 500],
+        coin: [0.01, 0.02, 0.05, 0.10, 0.20, 0.50, 1, 2],
+        coinSymbol: "¢",
+    }
 }
 export default currencies;
