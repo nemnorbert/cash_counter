@@ -5,7 +5,8 @@ import Panel from './components/Panel';
 import Saves from './components/Saves';
 
 export function App() {
-  const [total, setTotal] = useState({ coin: 0, banknote: 0, });
+  const totalDefault = { coin: 0, banknote: 0, };
+  const [total, setTotal] = useState(totalDefault);
   const [price, setPrice] = useState("");
   const [currency, setCurrencyData] = useState({
     current: currencies["huf"],
@@ -13,7 +14,7 @@ export function App() {
   });
 
   const resetAll = () => {
-    setTotal({ coin: 0, banknote: 0, })
+    setTotal(totalDefault);
     setPrice("");
   }
 
@@ -31,23 +32,27 @@ export function App() {
         <Box 
           type="coin" 
           currency={currency.current}
+          total={total}
           updateOverall={updateOverall}
         />
         <Box 
           type="banknote" 
           currency={currency.current}
+          total={total}
           updateOverall={updateOverall}
         />
         <Saves />
       </main>
-      <Panel 
-        currency={currency} 
-        setCurrency={setCurrencyData}
-        price={price}
-        setPrice={setPrice}
-        reset={resetAll}
-        total={total}
-      />
+      <nav>
+        <Panel 
+          currency={currency} 
+          setCurrency={setCurrencyData}
+          price={price}
+          setPrice={setPrice}
+          reset={resetAll}
+          total={total}
+        />
+      </nav>
     </>
   )
 }

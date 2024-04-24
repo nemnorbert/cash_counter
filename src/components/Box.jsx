@@ -1,13 +1,10 @@
-import { useState } from "preact/hooks";
 import Item from "./Item";
 import formatIt from "../utils/formatIt";
 
-export default function Box({currency, type, updateOverall }) {
-    const [total, setTotal] = useState(0);
+export default function Box({currency, type, total, updateOverall }) {
 
     const updateTotal = (input) => {
-        const newTotal = total + input;
-        setTotal(newTotal);
+        const newTotal = total[type] + input;
         updateOverall(type, newTotal);
     };
 
@@ -18,7 +15,7 @@ export default function Box({currency, type, updateOverall }) {
                     {type}
                 </h2>
                 <div className="sums">
-                    {formatIt(total, currency)}
+                    {formatIt(total[type], currency)}
                 </div>
             </div>
             <div className="content">

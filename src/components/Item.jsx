@@ -1,9 +1,14 @@
-import { useState } from "preact/hooks";
+import { useState, useEffect } from "preact/hooks";
 import formatIt from "../utils/formatIt";
 
 export default function Item({ itemValue, updateTotal, currency }) {
     const [count, setCount] = useState(0);
     const [sum, setSum] = useState(0);
+
+    useEffect(() => {
+        setCount(0);
+        setSum(0);
+    }, [currency]);
 
     const handleAmountChange = (newAmount) => {
         const newQuantity = newAmount > 999 ? 999 : Math.max(0, newAmount);
@@ -31,7 +36,7 @@ export default function Item({ itemValue, updateTotal, currency }) {
         <div className={classTag}>
             <div className="values">
                 <div>
-                    {formatIt(itemValue, currency)}
+                    {formatIt(itemValue, currency, true)}
                 </div>
                 <div className="sums">
                     {formatIt(sum, currency)}

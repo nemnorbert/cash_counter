@@ -9,12 +9,12 @@ $max-panel-width: 500px;
 :root {
   font-family: sans-serif;
 
-  --color-primary: rgb(6, 162, 6);
+  --color-primary: rgb(6, 82, 162);
   --color-text: rgb(48, 48, 48);
   --color-background: white;
 }
 body {
-  background-color: rgb(24, 24, 24);
+  background-image: linear-gradient(to bottom right, #212124, #0E0D1C);
   color: white;
   text-align: center;
 }
@@ -36,11 +36,8 @@ button {
   cursor: pointer;
 }
 
-.title {
+h1, h2 {
   text-transform: uppercase;
-}
-h1 {
-  padding: 2rem;
 }
 
 input::-webkit-outer-spin-button,
@@ -73,18 +70,18 @@ nav {
   .switch {
     display: flex;
     column-gap: .5rem;
-    font-size: 1.1rem;
     background-color: var(--color-primary);
     border-radius: .5rem;
     color: var(--color-background);
-    padding: .3rem;
-    align-items: center;
+    padding: 3px;
 
-    select {
+    select, #price {
       background-color: var(--color-background);
       padding: 5px;
       border-radius: 5px;
       border: none;
+      max-width: 50px;
+      text-align: center;
     }
   }
 
@@ -104,12 +101,15 @@ nav {
 
     .title {
       text-align: left;
+      display: flex;
+      flex-direction: column;
+      align-items: baseline;
     }
     .value {
       text-align: right;
 
       & > :nth-child(1) {
-        font-size: 1.5rem;
+        font-size: 1.7rem;
       }
       & > :nth-child(2) {
         color: black;
@@ -139,6 +139,7 @@ nav button {
   border-radius: 1rem;
   background-color: rgba(240, 248, 255, 0.041);
   justify-content: center;
+  max-width: 850px;
 
   .title {
     display: flex;
@@ -157,6 +158,7 @@ nav button {
 // Items
 .item {
   border: 2px solid rgb(173, 173, 173);
+  box-shadow: inset 0px 0px 20px rgba(6, 6, 6, .6);
   opacity: .5;
   transition: border-color .25s, opacity .25s;
   border-radius: 15px;

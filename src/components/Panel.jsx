@@ -11,6 +11,8 @@ export default function Panel({ currency, setCurrency, total, price, setPrice, r
             ...c,
             current: selectedCurrency
         }));
+
+        reset();
     }
     
 
@@ -27,7 +29,7 @@ export default function Panel({ currency, setCurrency, total, price, setPrice, r
                 { isForint && 
                     <input onChange={
                         (e) => setPrice(e.target.value)
-                    } placeholder={price} type="number" name="price" id="price" min="1" max="1000" 
+                    } value={price} placeholder="Price" type="number" name="price" id="price" min="300" max="500"
                 />}
             </div>
         </>)
@@ -55,25 +57,22 @@ export default function Panel({ currency, setCurrency, total, price, setPrice, r
     }
 
     return (<>
-        <nav>
-            <div id="total">
-                <div className="title">
-                    <div>overall</div>
-                    <Switcher />
-                </div>
-                <div className="value">
-                    <div>{formatIt(overall, currency.current)}</div>
-                    {
-                        isForint &&
-                            <div>{ showForint() }</div>
-                    }
-                </div>
+        <div id="total">
+            <div className="title">
+                <Switcher />
             </div>
-            <div className="buttons">
-                <Button>Save</Button>
-                <Button>Print</Button>
-                <Button reset={reset}>Reset</Button>
+            <div className="value">
+                <div>{formatIt(overall, currency.current)}</div>
+                {
+                    isForint &&
+                        <div>{ showForint() }</div>
+                }
             </div>
-        </nav>
+        </div>
+        <div className="buttons">
+            <Button>Save</Button>
+            <Button>Print</Button>
+            <Button reset={reset}>Reset</Button>
+        </div>
     </>)
 }
