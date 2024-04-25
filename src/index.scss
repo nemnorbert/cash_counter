@@ -1,5 +1,7 @@
 $min-width: 250px;
 $max-panel-width: 500px;
+$border-radius-1: 1rem;
+$gap1: 8px;
 
 *{
   box-sizing: border-box;
@@ -21,7 +23,7 @@ body {
 main {
   display: flex;
   flex-direction: column;
-  row-gap: 1rem;
+  row-gap: 2rem;
   padding: 1rem;
   padding-bottom: 200px;
   align-items: center;
@@ -36,6 +38,9 @@ button {
   cursor: pointer;
 }
 
+h1 {
+  padding: 50px;
+}
 h1, h2 {
   text-transform: uppercase;
 }
@@ -66,6 +71,7 @@ nav {
   padding: 0 10px;
   text-transform: uppercase;
   width: clamp($min-width, 100%, $max-panel-width);
+  backdrop-filter: blur(5px);
 
   .switch {
     display: flex;
@@ -132,26 +138,30 @@ nav button {
 }
 
 .container {
-  padding: 15px;
   display: flex;
   flex-direction: column;
-  row-gap: 1em;
-  border-radius: 1rem;
-  background-color: rgba(240, 248, 255, 0.041);
   justify-content: center;
-  max-width: 850px;
+  width: clamp(200px, 100%, 800px);
 
+  .title, .content {
+    border: solid 2px var(--color-primary);
+  }
   .title {
     display: flex;
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
+    background-color: var(--color-primary);
+    border-radius: $border-radius-1 $border-radius-1 0 0;
+    padding: 5px;
   }
   .content {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1em;
-    justify-content: center;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: $gap1;
+    padding: $gap1;
+    background-color: rgba(240, 248, 255, 0.041);
+    border-radius: 0 0 $border-radius-1 $border-radius-1;
   }
 }
 
@@ -166,7 +176,6 @@ nav button {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 1em;
   max-width: 225px;
 
   .btn {
@@ -205,11 +214,12 @@ nav button {
     display: flex;
     flex-direction: column;
     text-align: left;
-    padding: 10px;
+    padding: $gap1;
+    overflow: auto;
 
     & > :first-child {
       font-weight: bold;
-      font-size: 1.5rem;
+      font-size: 1.2rem;
     }
   }
 }
