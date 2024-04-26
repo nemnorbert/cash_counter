@@ -8,7 +8,12 @@ const languages = {
         },
         save: {
             title: "Mentések",
-            purge: "Mentések törlése"
+            purge: "Mentések törlése",
+            table: {
+                date: "Dátum",
+                value: "Érték",
+                currency: "Valuta"
+            }
         },
         panel: {
             save: "Mentés",

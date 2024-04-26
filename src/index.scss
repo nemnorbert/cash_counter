@@ -22,19 +22,30 @@ body {
   background-image: linear-gradient(to bottom right, #212124, #0E0D1C);
   color: white;
   text-align: center;
+  min-width: 250px;
 }
-
+body::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 300px;
+  background-image: linear-gradient(var(--color-primary), transparent);
+  z-index: -1;
+}
+#app {
+  min-height: 100vh;
+  padding-bottom: 200px;
+}
 .sums {
-  opacity: .5;
+  opacity: .8;
+  font-weight: bold;
 }
 button {
   background-color: transparent;
   border: none;
   cursor: pointer;
-}
-
-h1 {
-  padding: 50px;
 }
 h1, h2 {
   text-transform: uppercase;
@@ -63,6 +74,19 @@ main {
   & > * {
     grid-column: span 12;
     justify-self: center;
+  }
+}
+
+// Welcome
+#welcome {
+  text-transform: uppercase;
+  display: flex;
+  padding: 1rem;
+  padding-top: 50px;
+
+  h1 {
+    padding: 10px;
+    font-size: 2.5rem;
   }
 }
 
@@ -175,8 +199,10 @@ section {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
     gap: $gap1;
+  }
+  .content {
     padding: $gap1;
-    background-color: rgba(240, 248, 255, 0.041);
+    background-color: rgba(31, 31, 31, 0.719);
     border-radius: 0 0 $border-radius-1 $border-radius-1;
   }
 }
@@ -200,7 +226,6 @@ section.active {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  max-width: 225px;
 
   .btn {
     background-color: var(--color-background-1);
@@ -254,17 +279,55 @@ section.active {
   }
 }
 
-footer {
-  color: white;
-  padding-top: 50px;
-  padding-bottom: 200px;
+// Saves
+.saves {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+
+  .content {
+    padding: 0;
+    height: 100%;
+  }
+  .table-content {
+    overflow: auto;
+    max-height: 208px;
+  }
+
+  .table-header, .row {
+    display: flex;
+    justify-content: space-around;
+  }
+  .row {
+    border-bottom: 2px solid var(--color-text);
+  }
+
+  .row div, .table-header div {
+    flex: 1;
+    padding: 8px;
+  }
+  
+  .table-header {
+    font-weight: bold;
+    background-color: var(--color-background-2);
+    color: var(--color-text);
+    opacity: .8;
+  }
+
+  button {
+    padding: .5rem;
+    color: var(--color-background-2);
+  }
 }
 
 @media only screen and (min-width: 1000px) {
+  body::after {
+    display: none;
+  }
   main {
     column-gap: $gap2;
     padding: $gap2;
-    padding-top: 50px;
+    padding-top: 10vh;
     max-width: 1200px;
 
     & > * {

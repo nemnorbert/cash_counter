@@ -1,6 +1,8 @@
 import formatIt from "../utils/formatIt";
 
-export default function Panel({ translate, currency, setCurrency, total, price, setPrice, reset }) {
+export default function Panel({
+        translate, currency, setCurrency, total, price, setPrice, reset, saveIt 
+    }) {
     const overall = total.coin + total.banknote;
     const isForint = currency.current.iso !== "huf";
 
@@ -14,7 +16,6 @@ export default function Panel({ translate, currency, setCurrency, total, price, 
 
         reset();
     }
-    
 
     function Switcher() {
         return (<>
@@ -63,7 +64,7 @@ export default function Panel({ translate, currency, setCurrency, total, price, 
             </div>
         </div>
         <div className="buttons">
-            <button>{ translate.save }</button>
+            <button onClick={saveIt}>{ translate.save }</button>
             <button>{ translate.print }</button>
             <button onClick={reset}>{ translate.reset }</button>
         </div>

@@ -1,21 +1,26 @@
-export default function Saves({ translate, saves }) {
-    return (
+export default function Saves({ translate, saves, purgeSave }) {
+    return (<>
         <section className="saves">
             <div className="title">
-                <h2>{ translate.title ?? "Saved" }</h2>
+                <h2>{ translate?.title ?? "Saved" } ({saves.length})</h2>
             </div>
             <div className="content">
-                <div className="saves">
-                    {
-                        saves.map(save => {
-                            return <div key={save.time}>
-                                        {save.time} Total: {save.total}
-                                    </div>;
-                        })
-                    }
+                <div className="table-header">
+                    <div>{ translate?.table?.date ?? "Date" }</div>
+                    <div>{ translate?.table?.currency ?? "Currency" }</div>
+                    <div>{ translate?.table?.value ?? "Value" }</div>
                 </div>
-                <button>{ translate.purge ?? "Delete all data"}</button>
+                <div className="table-content">
+                    {saves.map((save, index) => (
+                        <div className="row" key={index}>
+                            <div>{save.time}</div>
+                            <div>{save.currency.toUpperCase()}</div>
+                            <div>{save.total}</div>
+                        </div>
+                    ))}
+                </div>
+                <button onClick={purgeSave}>{ translate?.purge ?? "Delete all data"}</button>
             </div>
         </section>
-    );
+    </>);
 }
