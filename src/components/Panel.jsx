@@ -1,6 +1,6 @@
 import formatIt from "../utils/formatIt";
 
-export default function Panel({ currency, setCurrency, total, price, setPrice, reset }) {
+export default function Panel({ translate, currency, setCurrency, total, price, setPrice, reset }) {
     const overall = total.coin + total.banknote;
     const isForint = currency.current.iso !== "huf";
 
@@ -29,16 +29,9 @@ export default function Panel({ currency, setCurrency, total, price, setPrice, r
                 { isForint && 
                     <input onChange={
                         (e) => setPrice(e.target.value)
-                    } value={price} placeholder="Price" type="number" name="price" id="price" min="300" max="500"
+                    } value={price} placeholder="Price" type="number" inputmode="numeric" pattern="[0-9]*" name="price" id="price" min="300" max="500"
                 />}
             </div>
-        </>)
-    }
-
-    function Button({ children, isReset = false }) {
-        const handleOnclick = isReset ? reset : undefined;
-        return (<>
-            <button onClick={handleOnclick}>{ children }</button>
         </>)
     }
 
@@ -70,9 +63,9 @@ export default function Panel({ currency, setCurrency, total, price, setPrice, r
             </div>
         </div>
         <div className="buttons">
-            <Button>Save</Button>
-            <Button>Print</Button>
-            <Button reset={reset}>Reset</Button>
+            <button>{ translate.save }</button>
+            <button>{ translate.print }</button>
+            <button onClick={reset}>{ translate.reset }</button>
         </div>
     </>)
 }

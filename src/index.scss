@@ -1,7 +1,9 @@
 $min-width: 250px;
 $max-panel-width: 500px;
 $border-radius-1: 1rem;
+$trasition-speed-1: .25s;
 $gap1: 8px;
+$gap2: 2rem;
 
 *{
   box-sizing: border-box;
@@ -11,22 +13,15 @@ $gap1: 8px;
 :root {
   font-family: sans-serif;
 
-  --color-primary: rgb(6, 82, 162);
+  --color-primary: #0073ec;
   --color-text: rgb(48, 48, 48);
-  --color-background: white;
+  --color-background-1: rgb(243, 243, 243);
+  --color-background-2: rgb(138, 138, 138);
 }
 body {
   background-image: linear-gradient(to bottom right, #212124, #0E0D1C);
   color: white;
   text-align: center;
-}
-main {
-  display: flex;
-  flex-direction: column;
-  row-gap: 2rem;
-  padding: 1rem;
-  padding-bottom: 200px;
-  align-items: center;
 }
 
 .sums {
@@ -56,7 +51,22 @@ input[type=number] {
   -moz-appearance: textfield;
 }
 
-/* TOTAL */
+// Main
+main {
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  grid-template-rows: 2;
+  row-gap: $gap2;
+  padding: $gap1;
+
+  & > * {
+    grid-column: span 12;
+    justify-self: center;
+  }
+}
+
+// Controll Panel
 nav {
   position: fixed;
   left: 50%;
@@ -78,16 +88,18 @@ nav {
     column-gap: .5rem;
     background-color: var(--color-primary);
     border-radius: .5rem;
-    color: var(--color-background);
+    color: var(--color-background-1);
     padding: 3px;
 
     select, #price {
-      background-color: var(--color-background);
+      background-color: var(--color-background-1);
       padding: 5px;
       border-radius: 5px;
       border: none;
-      max-width: 50px;
       text-align: center;
+    }
+    #price {
+      width: 60px;
     }
   }
 
@@ -132,36 +144,48 @@ nav .buttons {
   justify-content: space-around;
 }
 nav button {
-  color: var(--color-background);
+  color: var(--color-background-1);
   text-transform: uppercase;
   font-size: 1.2rem;
 }
 
-.container {
+// Container
+section {
   display: flex;
   flex-direction: column;
   justify-content: center;
   width: clamp(200px, 100%, 800px);
 
   .title, .content {
-    border: solid 2px var(--color-primary);
+    border: solid 2px var(--color-background-2);
+    transition: border-color $trasition-speed-1;
   }
   .title {
     display: flex;
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
-    background-color: var(--color-primary);
+    color: var(--color-text);
+    background-color: var(--color-background-2);
+    transition: background-color $trasition-speed-1;
     border-radius: $border-radius-1 $border-radius-1 0 0;
     padding: 5px;
   }
-  .content {
+  &:not(.saves) > .content {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
     gap: $gap1;
     padding: $gap1;
     background-color: rgba(240, 248, 255, 0.041);
     border-radius: 0 0 $border-radius-1 $border-radius-1;
+  }
+}
+section.active {
+  .title, .content {
+    border-color: var(--color-primary);
+  }
+  .title {
+    background-color: var(--color-primary);
   }
 }
 
@@ -172,18 +196,17 @@ nav button {
   opacity: .5;
   transition: border-color .25s, opacity .25s;
   border-radius: 15px;
-  padding: 3px;
+  padding: 2px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   max-width: 225px;
 
   .btn {
-    background-color: var(--color-background);
+    background-color: var(--color-background-1);
     transition: background-color .25s;
     background-image: linear-gradient(rgba(255, 255, 255, 0.288), #2f2f2f11);
     border-radius: 12px;
-    padding: 10px;
     padding: 5px;
     display: flex;
     flex-direction: column;
@@ -194,7 +217,6 @@ nav button {
       cursor: pointer;
       background-color: transparent;
       border: none;
-      padding: 0 10px;
       font-size: 1.5rem;
       font-weight: bold;
     }
@@ -206,7 +228,7 @@ nav button {
       border: none;
       text-align: center;
       font-size: 1.5rem;
-      max-width: 50px;
+      max-width: 40px;
     }
   }
 
@@ -229,5 +251,31 @@ nav button {
 
   .btn {
     background-color: var(--color-primary);
+  }
+}
+
+footer {
+  color: white;
+  padding-top: 50px;
+  padding-bottom: 200px;
+}
+
+@media only screen and (min-width: 1000px) {
+  main {
+    column-gap: $gap2;
+    padding: $gap2;
+    padding-top: 50px;
+    max-width: 1200px;
+
+    & > * {
+      grid-column: span 6;
+    }
+    & > :first-child {
+      grid-area: 1 / 7 / 2 / 13;
+    }
+    .saves {
+      grid-area: 2 / 7 / 3 / 13;
+      align-self: baseline;
+    }
   }
 }

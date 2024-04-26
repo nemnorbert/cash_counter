@@ -51,10 +51,13 @@ export default function Item({ itemValue, updateTotal, currency }) {
 
                 <input onChange={handleChange} 
                     type="number" 
+                    inputmode="numeric"
+                    pattern="[0-9]*"
+                    placeholder="0"
                     name="address"  
                     min="0" 
                     max="999" 
-                    value={count}
+                    value={count > 0 ? count : undefined}
                 />
 
                 <button onClick={handleDecrement} 
