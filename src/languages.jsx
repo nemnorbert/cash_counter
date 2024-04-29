@@ -1,5 +1,6 @@
 const languages = {
     hu: {
+        iso: "hu",
         coin: {
             title: "Érmék"
         },
@@ -22,6 +23,7 @@ const languages = {
         }
     },
     en: {
+        iso: "en",
         coin: {
             title: "Coins"
         },

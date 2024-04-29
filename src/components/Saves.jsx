@@ -1,4 +1,4 @@
-export default function Saves({ translate, saves, purgeSave }) {
+export default function Saves({ translate, saves, deleteAll }) {
     return (<>
         <section className="saves">
             <div className="title">
@@ -19,7 +19,7 @@ export default function Saves({ translate, saves, purgeSave }) {
                         </div>
                     ))}
                 </div>
-                <button onClick={purgeSave}>{ translate?.purge ?? "Delete all data"}</button>
+                <button onClick={deleteAll}>{ translate?.purge ?? "Delete all data"}</button>
             </div>
         </section>
     </>);

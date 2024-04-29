@@ -1,31 +1,23 @@
 import Item from "./Item";
-import formatIt from "../utils/formatIt";
 
-export default function Box({translate, currency, type, total, updateOverall }) {
+export default function Box({type, translate, currency, total, counter, setCountItems, toMoney }) {
 
-    const updateTotal = (input) => {
-        const newTotal = total[type] + input;
-        updateOverall(type, newTotal);
-    };
-
-    const classTag = total[type] ? "active" : undefined;
     return (
-        <section className={classTag}>
+        <section className={ total ? "active" : undefined }>
             <div className="title">
-                <h2>
-                    {translate.title}
-                </h2>
-                <div className="sums">
-                    {formatIt(total[type], currency)}
-                </div>
+                <h2>{ translate.title }</h2>
+                <div className="sums">{ toMoney(total) }</div>
             </div>
             <div className="content">
                 {currency[type].map((item, index) => (
                     <Item 
                         key={item} 
-                        currency={currency}
-                        itemValue={item}
-                        updateTotal={updateTotal}
+                        counter={counter[item]}
+                        item={item}
+                        type={type}
+
+                        setCountItems={setCountItems}
+                        toMoney={toMoney}
                     />
                 ))}
             </div>

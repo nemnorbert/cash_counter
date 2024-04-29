@@ -2,7 +2,7 @@ $min-width: 250px;
 $max-panel-width: 500px;
 $border-radius-1: 1rem;
 $trasition-speed-1: .25s;
-$gap1: 8px;
+$gap1: 6px;
 $gap2: 2rem;
 
 *{
@@ -22,7 +22,6 @@ body {
   background-image: linear-gradient(to bottom right, #212124, #0E0D1C);
   color: white;
   text-align: center;
-  min-width: 250px;
 }
 body::after {
   content: "";
@@ -34,13 +33,16 @@ body::after {
   background-image: linear-gradient(var(--color-primary), transparent);
   z-index: -1;
 }
+a {
+  text-decoration: none;
+  color: white;
+}
 #app {
   min-height: 100vh;
   padding-bottom: 200px;
 }
 .sums {
-  opacity: .8;
-  font-weight: bold;
+  opacity: .5;
 }
 button {
   background-color: transparent;
@@ -89,6 +91,10 @@ main {
     padding: 10px;
     font-size: 2.5rem;
   }
+  img {
+    width: 100px;
+    height: auto;
+  }
 }
 
 // Controll Panel
@@ -108,6 +114,13 @@ nav {
   width: clamp($min-width, 100%, $max-panel-width);
   backdrop-filter: blur(5px);
 
+  select, #price {
+    background-color: var(--color-background-1);
+    padding: 5px;
+    border-radius: 5px;
+    border: none;
+    text-align: center;
+  }
   .switch {
     display: flex;
     column-gap: .5rem;
@@ -116,13 +129,6 @@ nav {
     color: var(--color-background-1);
     padding: 3px;
 
-    select, #price {
-      background-color: var(--color-background-1);
-      padding: 5px;
-      border-radius: 5px;
-      border: none;
-      text-align: center;
-    }
     #price {
       width: 60px;
     }
@@ -145,8 +151,8 @@ nav {
     .title {
       text-align: left;
       display: flex;
-      flex-direction: column;
       align-items: baseline;
+      column-gap: 5px;
     }
     .value {
       text-align: right;
@@ -322,7 +328,9 @@ section.active {
 
 @media only screen and (min-width: 1000px) {
   body::after {
-    display: none;
+    background-image: radial-gradient(var(--color-primary), #212124);
+    height: 100vh;
+    opacity: .12;
   }
   main {
     column-gap: $gap2;

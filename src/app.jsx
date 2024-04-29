@@ -4,56 +4,113 @@ import languages from './languages';
 import Box from './components/Box';
 import Panel from './components/Panel';
 import Saves from './components/Saves';
-import formatIt from './utils/formatIt';
+import logo from './assets/logo.svg'
+
+const typesDefault = { coin: 0, banknote: 0 };
 
 export function App() {
-  // Hooks
-  const totalDefault = { coin: 0, banknote: 0, };
-  const [total, setTotal] = useState(totalDefault);
+  // Price
   const [price, setPrice] = useState("");
-  const [currency, setCurrencyData] = useState({
-    current: currencies["huf"],
-    all: currencies
-  });
-  const [translates, setTranslates] = useState({
-    current: languages["hu"],
-    all: languages
-  })
+
+  // Currency
+  const [currency, setCurrency] = useState(currencies["huf"]);
+
+  // Counter
+  const setCounterBase = (currency) => {
+    const categories = ["coin", "banknote"];
+    const base = {};
+    categories.forEach(category => {
+      base[category] = {};
+      const items = currency[category];
+      items.forEach(item => {
+        base[category][item] = { count: 0, total: 0 };
+      });
+    });
+    return base;
+  };
+  const [ counter, setCounter ] = useState(() => setCounterBase(currency));
+  const [ total, setTotal ] = useState(typesDefault);
+
+  // Languages
+  const [translates, setTranslates] = useState(languages["hu"]);
+
+  // Saves
   const savedData = localStorage.getItem('saves');
   const [saves, setSaves] = useState(savedData ? JSON.parse(savedData) : []);
 
-  // Functions
-  const resetAll = () => {
-    setTotal(totalDefault);
-    setPrice("");
-  }
-
-  const updateOverall = (type, value) => {
-    setTotal(t => ({
-      ...t,
-      [type]: value
-    }))
-  }
-
-  // SAVE
-  const saveIt = () => {
-    const totalIs = total.banknote + total.coin;
-  
-    const newSave = {
-      time: new Date().toISOString().split('T')[0],
-      currency: currency.current.iso,
-      total: formatIt(totalIs, currency.current)
+  //////////// Functions ////////////
+    const setCountItems = (type, item, count, total) => {
+      setCounter(c => {
+        const updatedCounter = {
+          ...c,
+          [type]: {
+            ...c[type],
+            [item]: { count, total }
+          }
+        };
+    
+        const newTotal = Object.values(updatedCounter[type]).reduce((all, current) => all + current.total, 0);
+        setTotal(prevTotal => ({
+          ...prevTotal,
+          [type]: newTotal
+        }));
+    
+        return updatedCounter;
+      });
     };
-  
-    setSaves(s => [newSave, ...s]);
 
-    localStorage.setItem('saves', JSON.stringify([newSave, ...saves]));
-  };
+    const resetAll = () => {
+      setCounter(() => setCounterBase(currency));
+      setTotal(typesDefault);
+      setPrice("");
+    }
 
-  const purgeSave = () => {
-    localStorage.setItem('saves', '');
-    setSaves([]);
-  }
+    const handlerChangeCurrency = (e) => {
+      const newCurrency = currencies[e.target.value];
+      if (!newCurrency) return;
+    
+      setCurrency(newCurrency);
+      setCounter(setCounterBase(newCurrency));
+      setTotal(typesDefault);
+      setPrice("");
+    };
+
+    const handlerChangeLang = (e) => {
+      const newLang = languages[e.target.value];
+      if (!newLang) return;
+
+      setTranslates(newLang);
+    };  
+    
+    const toMoney = (input, sub = false) => {
+      if (!input) return "";
+      const maxDigits = Number.isInteger(input) ? 0 : 2;
+      const {subSymbol, subUnit} = currency;
+
+      if (input > 0 && input < 1 && sub && subSymbol && subUnit) {
+        return `${input * subUnit} ${subSymbol}`;
+      }
+
+      return input.toLocaleString(
+        currency.lang, 
+          { style: 'currency', currency: currency.iso, maximumFractionDigits: maxDigits }
+      )
+    }
+    
+    const saveIt = () => {
+      const newSave = {
+        time: new Date().toISOString().split('T')[0],
+        currency: currency.iso,
+        total: toMoney(total.banknote + total.coin)
+      };
+      setSaves(s => [newSave, ...s]);
+      localStorage.setItem('saves', JSON.stringify([newSave, ...saves]));
+    };
+    
+    const deleteSaves = () => {
+      localStorage.setItem('saves', '');
+      setSaves([]);
+    }
 
   // Render
   return (
@@ -61,43 +118,56 @@ export function App() {
       <main>
 
         <section id="welcome">
-          <h1>Cash Counter</h1>
-          <p>by Adanor</p>
+          <h1>Cash<br/>Counter</h1>
+          <a href='https://adanor.eu' target='_blank'>
+            by <img src={logo} alt="Logo" />
+          </a>
         </section>
 
         <Box 
           type="coin" 
-          translate={translates.current.coin}
-          currency={currency.current}
-          total={total}
-          updateOverall={updateOverall}
+          counter={counter.coin}
+          translate={translates.coin}
+          currency={currency}
+          total={total.coin}
+
+          toMoney={toMoney}
+          setCountItems={setCountItems}
         />
 
         <Box 
           type="banknote"
-          translate={translates.current.banknote}
-          currency={currency.current}
-          total={total}
-          updateOverall={updateOverall}
+          counter={counter.banknote}
+          translate={translates.banknote}
+          currency={currency}
+          total={total.banknote}
+
+          toMoney={toMoney}
+          setCountItems={setCountItems}
         />
 
         <Saves 
-          translate={translates.current.save}
+          translate={translates.save}
           saves={saves}
-          purgeSave={purgeSave}
+          deleteAll={deleteSaves}
         />
 
       </main>
 
       <nav>
         <Panel 
-          translate={translates.current.panel}
-          currency={currency} 
-          setCurrency={setCurrencyData}
+          translate={translates.panel}
+          currency={currency}
+          currencies={currencies}
           price={price}
+          total={total}
+          languages={languages}
+
+          onChangeLang={handlerChangeLang}
+          onChangeCurrency={handlerChangeCurrency}
+          toMoney={toMoney}
           setPrice={setPrice}
           reset={resetAll}
-          total={total}
           saveIt={saveIt}
         />
       </nav>
