@@ -20,6 +20,15 @@ const languages = {
             save: "Mentés",
             print: "Nyomtatás",
             reset: "Törlés"
+        },
+        print: {
+            page: "Oldal",
+            date: "Dátum",
+            currency: "Valuta",
+            rate: "Árfolyam",
+            signature: "Aláírás",
+            banknote: "Bankjegyek",
+            coin: "Érmék"
         }
     },
     en: {
@@ -38,6 +47,15 @@ const languages = {
             save: "Save",
             print: "Print",
             reset: "Reset"
+        },
+        print: {
+            page: "Page",
+            date: "Date",
+            currency: "Currency",
+            rate: "Exchange Rate",
+            signature: "Signature",
+            banknote: "Banknotes",
+            coin: "Coins"
         }
     }
 };

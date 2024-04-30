@@ -23,7 +23,7 @@ export default function Panel({ translate, languages, currency, currencies, tota
         </div>
         <div className="buttons">
             <button onClick={saveIt}>{ translate.save }</button>
-            <button>{ translate.print }</button>
+            <button onClick={() => window.print()}>{ translate.print }</button>
             <button onClick={reset}>{ translate.reset }</button>
         </div>
     </>)

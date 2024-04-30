@@ -19,7 +19,7 @@ export default function Item({ counter, item, type, setCountItems, toMoney }) {
         <div className={ count !== 0 ? "item active" : "item" }>
             <div className="values">
                 <div>
-                    { toMoney(item) }
+                    { toMoney(item, true) }
                 </div>
                 <div className="sums">
                     { toMoney(total) }

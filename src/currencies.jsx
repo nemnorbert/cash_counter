@@ -20,6 +20,14 @@ const currencies = {
         coin: [0.01, 0.05, 0.10, 0.25, 0.50],
         subSymbol: "¢",
         subUnit: 100,
+    },
+    gbp: {
+        iso: "gbp",
+        lang: "en-GB",
+        banknote: [5, 10, 20, 50],
+        coin: [0.01, 0.02, 0.05, 0.10, 0.20, 0.50, 1, 2],
+        subSymbol: "p",
+        subUnit: 100,
     }
 };
 

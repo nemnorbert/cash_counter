@@ -4,6 +4,7 @@ import languages from './languages';
 import Box from './components/Box';
 import Panel from './components/Panel';
 import Saves from './components/Saves';
+import PrintPaper from './components/PrintPaper';
 import logo from './assets/logo.svg'
 
 const typesDefault = { coin: 0, banknote: 0 };
@@ -37,6 +38,9 @@ export function App() {
   // Saves
   const savedData = localStorage.getItem('saves');
   const [saves, setSaves] = useState(savedData ? JSON.parse(savedData) : []);
+
+  // Print Paper
+  const [print, setPrint] = useState(true);
 
   //////////// Functions ////////////
     const setCountItems = (type, item, count, total) => {
@@ -87,7 +91,7 @@ export function App() {
       const maxDigits = Number.isInteger(input) ? 0 : 2;
       const {subSymbol, subUnit} = currency;
 
-      if (input > 0 && input < 1 && sub && subSymbol && subUnit) {
+      if (input < 1 && sub && subSymbol && subUnit) {
         return `${input * subUnit} ${subSymbol}`;
       }
 
@@ -171,6 +175,14 @@ export function App() {
           saveIt={saveIt}
         />
       </nav>
+
+      {
+        print ? <PrintPaper
+          currency={currency} 
+          price={price}
+          translate={translates.print}
+        /> : undefined
+      }
     </>
   )
 }
