@@ -1,4 +1,5 @@
 export default function CurrencySwitcher({ currency, currencies, price, setPrice, onChangeSwitch }) {
+    
     return (<>
         <div className="switch">
             <select onChange={onChangeSwitch} value={currency.iso} name="switcher" id="switcher">

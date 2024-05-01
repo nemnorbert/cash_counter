@@ -4,6 +4,7 @@ import languages from './languages';
 import Box from './components/Box';
 import Panel from './components/Panel';
 import Saves from './components/Saves';
+import DarkMode from './components/DarkMode.jsx';
 import PrintPaper from './components/PrintPaper';
 import logo from './assets/logo.svg'
 
@@ -126,6 +127,7 @@ export function App() {
           <a href='https://adanor.eu' target='_blank'>
             by <img src={logo} alt="Logo" />
           </a>
+          <DarkMode />
         </section>
 
         <Box 

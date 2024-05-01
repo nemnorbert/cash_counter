@@ -9,14 +9,20 @@ $gap2: 2rem;
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  touch-action: manipulation;
 }
 :root {
   font-family: sans-serif;
 
   --color-primary: #0073ec;
+  --color-secundary: #0050a7;
   --color-text: rgb(48, 48, 48);
-  --color-background-1: rgb(243, 243, 243);
+  --color-bg: rgb(243, 243, 243);
   --color-background-2: rgb(111, 111, 111);
+}
+.darkmode {
+  --color-text: rgb(241, 241, 241);
+  --color-bg: rgb(29, 29, 29);
 }
 body {
   background-image: linear-gradient(to bottom right, #212124, #0E0D1C);
@@ -115,7 +121,7 @@ nav {
   backdrop-filter: blur(5px);
 
   select, #price {
-    background-color: var(--color-background-1);
+    background-color: var(--color-bg);
     padding: 5px;
     border-radius: 5px;
     border: none;
@@ -126,12 +132,11 @@ nav {
     column-gap: .5rem;
     background-color: var(--color-primary);
     border-radius: .5rem;
-    color: var(--color-background-1);
+    color: var(--color-bg);
     padding: 3px;
-
-    #price {
-      width: 60px;
-    }
+    row-gap: 3px;
+    flex-direction: column;
+    width: 60px;
   }
 
   & > * {
@@ -166,18 +171,18 @@ nav {
       }
     }
   }
-}
-nav .buttons {
-  border-radius: 1rem 1rem 0 0;
-  background-color: var(--color-primary);
-  background-image: linear-gradient(rgba(219, 219, 219, 0.185), rgba(26, 26, 26, 0.226));
-  color: white;
-  justify-content: space-around;
-}
-nav button {
-  color: var(--color-background-1);
-  text-transform: uppercase;
-  font-size: 1.2rem;
+  .buttons {
+    border-radius: 1rem 1rem 0 0;
+    background-color: var(--color-primary);
+    background-image: linear-gradient(rgba(219, 219, 219, 0.185), rgba(26, 26, 26, 0.226));
+    color: white;
+    justify-content: space-around;
+  }
+  button {
+    color: var(--color-bg);
+    text-transform: uppercase;
+    font-size: 1.2rem;
+  }
 }
 
 // Container
@@ -234,7 +239,7 @@ section.active {
   align-items: center;
 
   .btn {
-    background-color: var(--color-background-1);
+    background-color: var(--color-bg);
     transition: background-color .25s;
     background-image: linear-gradient(rgba(255, 255, 255, 0.288), #2f2f2f11);
     border-radius: 12px;
@@ -317,7 +322,7 @@ section.active {
     font-weight: bold;
     background-color: rgb(43, 43, 43);
     border-radius: 1rem 1rem 0rem 0rem;
-    color: var(--color-background-1);
+    color: var(--color-bg);
   }
 
   button {
