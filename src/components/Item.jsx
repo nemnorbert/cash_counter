@@ -40,7 +40,7 @@ export default function Item({ counter, item, type, setCountItems, toMoney }) {
                     name="address"  
                     min="0" 
                     max="999" 
-                    value={count > 0 ? count : null}
+                    value={count > 0 ? count : ""}
                 />
 
                 <button onClick={handleDecrement} 

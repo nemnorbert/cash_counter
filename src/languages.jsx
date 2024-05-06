@@ -29,7 +29,8 @@ const languages = {
             signature: "Aláírás",
             banknote: "Bankjegyek",
             coin: "Érmék"
-        }
+        },
+        darkmode: "Sötét Mód"
     },
     en: {
         iso: "en",
@@ -56,7 +57,8 @@ const languages = {
             signature: "Signature",
             banknote: "Banknotes",
             coin: "Coins"
-        }
+        },
+        darkmode: "Dark Mode"
     }
 };
 

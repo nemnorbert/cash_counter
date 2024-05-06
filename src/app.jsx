@@ -127,7 +127,7 @@ export function App() {
           <a href='https://adanor.eu' target='_blank'>
             by <img src={logo} alt="Logo" />
           </a>
-          <DarkMode />
+          <DarkMode translate={translates.darkmode} />
         </section>
 
         <Box 
@@ -181,8 +181,12 @@ export function App() {
       {
         print ? <PrintPaper
           currency={currency} 
+          total={total}
           price={price}
           translate={translates.print}
+          counter={counter}
+
+          toMoney={toMoney}
         /> : undefined
       }
     </>

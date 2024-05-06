@@ -23,7 +23,10 @@ export default function Panel({ translate, languages, currency, currencies, tota
         </div>
         <div className="buttons">
             <button onClick={saveIt}>{ translate.save }</button>
-            <button onClick={() => window.print()}>{ translate.print }</button>
+            {
+                total.coin || total.banknote ?
+                <button onClick={() => window.print()}>{ translate.print }</button> : null
+            }
             <button onClick={reset}>{ translate.reset }</button>
         </div>
     </>)

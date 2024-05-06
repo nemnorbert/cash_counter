@@ -15,29 +15,29 @@ $gap2: 2rem;
   font-family: sans-serif;
 
   --color-primary: #0073ec;
-  --color-secundary: #0050a7;
+  --color-primary-transparent: #0072ec4f;
   --color-text: rgb(48, 48, 48);
+  --color-text-transparent: rgba(64, 64, 64, .6);
   --color-bg: rgb(243, 243, 243);
-  --color-background-2: rgb(111, 111, 111);
+  --color-bg-transparent: rgba(223, 223, 223, 0.7);
+  --toggle-fg: rgb(255, 255, 203);
+  --toggle-bg: yellow;
 }
 .darkmode {
+  --color-primary: #0055b1;
   --color-text: rgb(241, 241, 241);
-  --color-bg: rgb(29, 29, 29);
+  --color-text-transparent: rgba(241, 241, 241, 0.4);
+  --color-bg: rgb(34, 34, 34);
+  --color-bg-transparent: rgba(43, 43, 43, 0.7);
+  --toggle-fg: rgb(142, 232, 255);
+  --toggle-bg: blue;
 }
 body {
-  background-image: linear-gradient(to bottom right, #212124, #0E0D1C);
-  color: white;
+  background-color: var(--color-bg);
+  background-image: radial-gradient(var(--color-primary-transparent), #21212434);
+  color: var(--color-text);
+  transition: background-color $trasition-speed-1, color $trasition-speed-1;
   text-align: center;
-}
-body::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 300px;
-  background-image: linear-gradient(var(--color-primary), transparent);
-  z-index: -1;
 }
 a {
   text-decoration: none;
@@ -87,13 +87,12 @@ main {
 
 // Welcome
 #welcome {
-  text-transform: uppercase;
-  display: flex;
-  padding: 1rem;
-  padding-top: 50px;
   background-color: transparent;
+  justify-content: center;
+  box-shadow: none;
 
   h1 {
+    color: var(--color-primary);
     padding: 10px;
     font-size: 2.5rem;
   }
@@ -112,16 +111,16 @@ nav {
   border-radius: 1rem 1rem 0 0;
   display: flex;
   flex-direction: column;
-  color: rgb(22, 22, 22);
   align-items: center;
-  background-color: rgba(233, 233, 233, 0.884);
+  background-color: var(--color-primary-transparent);
   padding: 0 10px;
   text-transform: uppercase;
   width: clamp($min-width, 100%, $max-panel-width);
-  backdrop-filter: blur(5px);
+  backdrop-filter: blur(10px);
 
   select, #price {
     background-color: var(--color-bg);
+    color: var(--color-primary);
     padding: 5px;
     border-radius: 5px;
     border: none;
@@ -132,7 +131,6 @@ nav {
     column-gap: .5rem;
     background-color: var(--color-primary);
     border-radius: .5rem;
-    color: var(--color-bg);
     padding: 3px;
     row-gap: 3px;
     flex-direction: column;
@@ -148,7 +146,6 @@ nav {
   #total {
     justify-content: space-between;
     align-items: center;
-    color: var(--color-primary);
     font-weight: bold;
     font-size: 1.2rem;
     column-gap: 2em;
@@ -166,8 +163,7 @@ nav {
         font-size: 1.7rem;
       }
       & > :nth-child(2) {
-        color: black;
-        opacity: .2;
+        opacity: .5;
       }
     }
   }
@@ -179,7 +175,7 @@ nav {
     justify-content: space-around;
   }
   button {
-    color: var(--color-bg);
+    color: white;
     text-transform: uppercase;
     font-size: 1.2rem;
   }
@@ -189,11 +185,12 @@ nav {
 section {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   width: clamp(200px, 100%, 800px);
-  background-color: var(--color-background-2);
+  background-color: var(--color-bg);
   transition: background-color $trasition-speed-1;
   border-radius: $border-radius-1;
+  box-shadow: 0 0 5px #24242438;
   padding: 2px;
 
   .title, .content {
@@ -204,7 +201,7 @@ section {
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
-    color: var(--color-text);
+    transition: color $trasition-speed-1;
     border-radius: $border-radius-1 $border-radius-1 0 0;
     padding: 5px;
   }
@@ -215,7 +212,7 @@ section {
   }
   .content {
     padding: $gap1;
-    background-color: rgba(31, 31, 31, .7);
+    background-color: var(--color-bg-transparent);
     border-radius: 1rem;
   }
 }
@@ -228,9 +225,9 @@ section.active {
 
 // Items
 .item {
-  border: 2px solid rgb(173, 173, 173);
-  box-shadow: inset 0px 0px 20px rgba(6, 6, 6, .6);
-  opacity: .5;
+  border: 2px solid var(--color-text-transparent);
+  box-shadow: inset 0px 0px 5px rgba(6, 6, 6, .2);
+  opacity: .7;
   transition: border-color .25s, opacity .25s;
   border-radius: 15px;
   padding: 2px;
@@ -240,8 +237,9 @@ section.active {
 
   .btn {
     background-color: var(--color-bg);
+    box-shadow: 0 0 3px #1c1c1cde;
     transition: background-color .25s;
-    background-image: linear-gradient(rgba(255, 255, 255, 0.288), #2f2f2f11);
+    background-image: linear-gradient(rgba(255, 255, 255, .3), rgba(113, 113, 113, 0.3));
     border-radius: 12px;
     padding: 5px;
     display: flex;
@@ -310,7 +308,7 @@ section.active {
     justify-content: space-around;
   }
   .row {
-    border-bottom: 2px solid var(--color-text);
+    border-bottom: 2px solid var(--color-text-transparent);
   }
 
   .row div, .table-header div {
@@ -320,14 +318,14 @@ section.active {
   
   .table-header {
     font-weight: bold;
-    background-color: rgb(43, 43, 43);
     border-radius: 1rem 1rem 0rem 0rem;
+    background-color: var(--color-primary);
     color: var(--color-bg);
   }
 
   button {
     padding: .5rem;
-    color: var(--color-background-2);
+    color: var(--color-primary);
   }
 }
 
@@ -370,6 +368,7 @@ section.active {
   padding: 10px;
   justify-content: space-between;
   align-items: center;
+  width: 100%;
 
   .left {
       display: flex;
@@ -385,23 +384,26 @@ section.active {
       line-height: 1.8rem;
   }
   .details {
-      text-align: right;
+    text-align: right;
+    .content {
+      padding: 5px 0;
+    }
+    .sub {
+      border-top: rgba(0, 0, 0, 0.445) solid 1px;
+      padding-top: 5px;
+    }
   }
   .total {
-      text-align: left;
-      font-size: 20px;
-      b {
-          font-size: 24px;
-      }
+    text-align: left;
+    font-size: 20px;
+    
+    b {
+        font-size: 28px;
+    }
   }
 }
 
 @media only screen and (min-width: 1000px) {
-  body::after {
-    background-image: radial-gradient(var(--color-primary), #212124);
-    height: 100vh;
-    opacity: .12;
-  }
   main {
     column-gap: $gap2;
     padding: $gap2;
@@ -427,6 +429,10 @@ section.active {
       min-height: auto;
       background: white;
       color: black;
+  }
+  body {
+    background-color: transparent;
+    background-image: none;
   }
   nav, main {
       display: none;
